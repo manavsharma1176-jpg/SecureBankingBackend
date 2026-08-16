@@ -1,6 +1,7 @@
 package com.manav.securebanking.controller;
 
 import com.manav.securebanking.model.Account;
+import com.manav.securebanking.service.AccountService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,13 @@ public class HelloController {
 
     @PostMapping("/api/accounts")
     public String createAccount(@RequestBody Account account){
-       return "Account created for " + account.getName();
+       return accountService.createAccount(account);
 
+    }
+
+    private AccountService accountService;
+
+    public HelloController(AccountService accountService){
+        this.accountService = accountService;
     }
 }
