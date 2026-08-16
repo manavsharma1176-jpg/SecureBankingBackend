@@ -13,7 +13,7 @@ public class HelloController {
 
     @GetMapping("/api/hello")
     public String hello() {
-        return "Banking Backend is running";
+        return "Login Feature";
     }
 
     @PostMapping("/api/accounts")
