@@ -1,9 +1,15 @@
 package com.manav.securebanking.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
+
+@Entity
 public class Account {
 
     public String getName(){
         return name;
+
 
     }
 
@@ -21,4 +27,8 @@ public class Account {
 
     private String name;
     private String accountType;
+
+    @Id
+    @GeneratedValue
+    private Long id;
 }
