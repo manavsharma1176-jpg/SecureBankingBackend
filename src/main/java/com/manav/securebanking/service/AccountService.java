@@ -4,6 +4,7 @@ package com.manav.securebanking.service;
 import org.springframework.stereotype.Service;
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.repository.AccountRepository;
+import java.util.List;
 
 @Service
 public class AccountService {
@@ -19,5 +20,11 @@ public class AccountService {
     public AccountService(AccountRepository accountRepository){
 
         this.accountRepository = accountRepository;
+    }
+
+    public List<Account> getAllAccounts (){
+
+        return accountRepository.findAll();
+
     }
 }

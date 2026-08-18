@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @RestController
 
 
@@ -23,9 +25,17 @@ public class HelloController {
 
     }
 
+    @GetMapping("/api/accounts")
+    public List<Account> getAllAccount(){
+        return accountService.getAllAccounts();
+    }
+
     private AccountService accountService;
 
     public HelloController(AccountService accountService){
         this.accountService = accountService;
     }
+
+
+
 }
