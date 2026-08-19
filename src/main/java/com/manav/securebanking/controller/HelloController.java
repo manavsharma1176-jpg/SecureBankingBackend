@@ -2,10 +2,7 @@ package com.manav.securebanking.controller;
 
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.service.AccountService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,14 @@ public class HelloController {
     public List<Account> getAllAccount(){
         return accountService.getAllAccounts();
     }
+
+    @GetMapping("/api/accounts/{id}")
+    public Account getAccountById(@PathVariable Long id){
+        return accountService.getAccountById(id);
+    }
+
+
+
 
     private AccountService accountService;
 

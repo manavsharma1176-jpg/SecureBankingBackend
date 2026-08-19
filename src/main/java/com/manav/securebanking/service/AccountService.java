@@ -1,13 +1,19 @@
 package com.manav.securebanking.service;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.repository.AccountRepository;
+import org.springframework.web.server.ResponseStatusException;
+
+
 import java.util.List;
 
 @Service
 public class AccountService {
+
+
 
     public String createAccount(Account account){
         accountRepository.save(account);
@@ -27,4 +33,13 @@ public class AccountService {
         return accountRepository.findAll();
 
     }
+
+    public Account getAccountById(Long id){
+        return accountRepository.findById(id).
+                orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND , "Account Not Found"));
+    }
+
+
+
+
 }
