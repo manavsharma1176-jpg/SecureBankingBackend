@@ -32,6 +32,12 @@ public class HelloController {
         return accountService.getAccountById(id);
     }
 
+    @PutMapping("/api/accounts/{id}")
+    public Account updateAccount(@PathVariable Long id , @RequestBody Account account){
+        return accountService.updateAccount(id , account);
+    }
+
+
 
 
 

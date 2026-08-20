@@ -39,6 +39,16 @@ public class AccountService {
                 orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND , "Account Not Found"));
     }
 
+    public Account updateAccount(Long id , Account account){
+        Account existingAccount = accountRepository.findById(id).orElseThrow(()->new RuntimeException("Account Not Found"));
+
+        existingAccount.setName(account.getName());
+        existingAccount.setAccountType(account.getAccountType());
+
+        return accountRepository.save(existingAccount);
+
+    }
+
 
 
 
