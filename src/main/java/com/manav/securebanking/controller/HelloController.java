@@ -2,6 +2,8 @@ package com.manav.securebanking.controller;
 
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.service.AccountService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +19,14 @@ public class HelloController {
     }
 
     @PostMapping("/api/accounts")
-    public String createAccount(@RequestBody Account account){
-       return accountService.createAccount(account);
+    public ResponseEntity<String> createAccount(@RequestBody Account account){
 
+        String response = accountService.createAccount(account);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+
 
     @GetMapping("/api/accounts")
     public List<Account> getAllAccount(){
@@ -38,8 +44,10 @@ public class HelloController {
     }
 
     @DeleteMapping("/api/accounts/{id}")
-    public void deleteAccount(@PathVariable Long id){
+    public ResponseEntity<Void> deleteAccount(@PathVariable Long id){
         accountService.deleteAccount(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 
