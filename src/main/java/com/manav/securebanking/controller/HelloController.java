@@ -2,6 +2,7 @@ package com.manav.securebanking.controller;
 
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.service.AccountService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class HelloController {
     }
 
     @PostMapping("/api/accounts")
-    public ResponseEntity<String> createAccount(@RequestBody Account account){
+    public ResponseEntity<String> createAccount(@Valid @RequestBody Account account){
 
         String response = accountService.createAccount(account);
 

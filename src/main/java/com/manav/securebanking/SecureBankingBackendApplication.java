@@ -9,5 +9,4 @@ public class SecureBankingBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(SecureBankingBackendApplication.class, args);
     }
-
 }
