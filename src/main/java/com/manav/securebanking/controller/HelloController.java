@@ -14,6 +14,10 @@ import java.util.List;
 
 public class HelloController {
 
+    public HelloController(AccountService accountService){
+        this.accountService = accountService;
+    }
+
     @GetMapping("/api/hello")
     public String hello() {
         return "Login Feature";
@@ -52,14 +56,9 @@ public class HelloController {
     }
 
 
-
-
-
     private AccountService accountService;
 
-    public HelloController(AccountService accountService){
-        this.accountService = accountService;
-    }
+
 
 
 

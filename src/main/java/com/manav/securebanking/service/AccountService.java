@@ -1,8 +1,6 @@
 package com.manav.securebanking.service;
 
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.manav.securebanking.model.Account;
@@ -10,6 +8,7 @@ import com.manav.securebanking.repository.AccountRepository;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import com.manav.securebanking.exception.AccountNotFoundException;
 import java.util.List;
 
 @Service
@@ -37,8 +36,9 @@ public class AccountService {
     }
 
     public Account getAccountById(Long id){
-        return accountRepository.findById(id).
-                orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND , "Account Not Found"));
+        return accountRepository.findById(id)
+                .orElseThrow(() ->
+                        new AccountNotFoundException("Account Not Found"));
     }
 
     public Account updateAccount(Long id , Account account){
