@@ -51,6 +51,23 @@ public class AccountService {
 
     }
 
+    public Account patchAccount(Long id, Account account) {
+
+        Account existingAccount = accountRepository.findById(id)
+                .orElseThrow(() ->
+                        new AccountNotFoundException("Account Not Found"));
+
+        if (account.getName() != null) {
+            existingAccount.setName(account.getName());
+        }
+
+        if (account.getAccountType() != null) {
+            existingAccount.setAccountType(account.getAccountType());
+        }
+
+        return accountRepository.save(existingAccount);
+    }
+
     public void deleteAccount(Long id){
         Account existingAccount = accountRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Account Not Found"));
 

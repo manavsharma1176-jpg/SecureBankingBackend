@@ -48,6 +48,11 @@ public class HelloController {
         return accountService.updateAccount(id , account);
     }
 
+    @PatchMapping("/api/accounts/{id}")
+    public Account patchAccount(@PathVariable Long id, @RequestBody Account account) {
+        return accountService.patchAccount(id, account);
+    }
+
     @DeleteMapping("/api/accounts/{id}")
     public ResponseEntity<Void> deleteAccount(@PathVariable Long id){
         accountService.deleteAccount(id);
