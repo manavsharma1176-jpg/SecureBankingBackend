@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.manav.securebanking.dto.AccountPatchRequest;
 
 import java.util.List;
 
@@ -49,8 +50,8 @@ public class HelloController {
     }
 
     @PatchMapping("/api/accounts/{id}")
-    public Account patchAccount(@PathVariable Long id, @RequestBody Account account) {
-        return accountService.patchAccount(id, account);
+    public Account patchAccount(@PathVariable Long id, @RequestBody AccountPatchRequest request ) {
+        return accountService.patchAccount(id, request);
     }
 
     @DeleteMapping("/api/accounts/{id}")

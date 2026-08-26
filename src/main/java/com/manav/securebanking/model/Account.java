@@ -33,12 +33,16 @@ public class Account {
         return accountType;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setAccountType(String accountType){
         this.accountType = accountType;
     }
 
-   // private String name;
-  //  private String accountType;
+
+
 
     @Id
     @GeneratedValue

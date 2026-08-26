@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.repository.AccountRepository;
 import org.springframework.web.server.ResponseStatusException;
+import com.manav.securebanking.dto.AccountPatchRequest;
 
 
 import com.manav.securebanking.exception.AccountNotFoundException;
@@ -51,18 +52,18 @@ public class AccountService {
 
     }
 
-    public Account patchAccount(Long id, Account account) {
+    public Account patchAccount(Long id, AccountPatchRequest request) {
 
         Account existingAccount = accountRepository.findById(id)
                 .orElseThrow(() ->
                         new AccountNotFoundException("Account Not Found"));
 
-        if (account.getName() != null) {
-            existingAccount.setName(account.getName());
+        if (request.getName() != null) {
+            existingAccount.setName(request.getName());
         }
 
-        if (account.getAccountType() != null) {
-            existingAccount.setAccountType(account.getAccountType());
+        if (request.getAccountType() != null) {
+            existingAccount.setAccountType(request.getAccountType());
         }
 
         return accountRepository.save(existingAccount);
