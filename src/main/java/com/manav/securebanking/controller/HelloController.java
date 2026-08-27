@@ -1,5 +1,6 @@
 package com.manav.securebanking.controller;
 
+import com.manav.securebanking.dto.AccountResponse;
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.service.AccountService;
 import jakarta.validation.Valid;
@@ -40,10 +41,9 @@ public class HelloController {
     }
 
     @GetMapping("/api/accounts/{id}")
-    public Account getAccountById(@PathVariable Long id){
+    public AccountResponse getAccountById(@PathVariable Long id){
         return accountService.getAccountById(id);
     }
-
     @PutMapping("/api/accounts/{id}")
     public Account updateAccount(@PathVariable Long id , @RequestBody Account account){
         return accountService.updateAccount(id , account);

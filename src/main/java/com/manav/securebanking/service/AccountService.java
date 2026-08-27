@@ -1,6 +1,7 @@
 package com.manav.securebanking.service;
 
 
+import com.manav.securebanking.dto.AccountResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.manav.securebanking.model.Account;
@@ -36,10 +37,11 @@ public class AccountService {
 
     }
 
-    public Account getAccountById(Long id){
-        return accountRepository.findById(id)
+    public AccountResponse getAccountById(Long id){
+        Account account = accountRepository.findById(id)
                 .orElseThrow(() ->
                         new AccountNotFoundException("Account Not Found"));
+        return AccountResponse.fromAccount(account);
     }
 
     public Account updateAccount(Long id , Account account){
@@ -74,8 +76,6 @@ public class AccountService {
 
         accountRepository.delete(existingAccount);
     }
-
-
 
 
 

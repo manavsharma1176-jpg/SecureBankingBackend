@@ -8,7 +8,7 @@ public class AccountPatchRequest {
         return name;
     }
 
-    public void setName(){
+    public void setName(String name){
         this.name = name;
     }
 
@@ -18,7 +18,7 @@ public class AccountPatchRequest {
         return accountType;
     }
 
-    public void setAccountType(){
+    public void setAccountType(String accountType){
         this.accountType = accountType;
     }
 
