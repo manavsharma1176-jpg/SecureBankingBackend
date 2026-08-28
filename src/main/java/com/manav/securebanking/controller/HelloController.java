@@ -20,7 +20,7 @@ public class HelloController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/api/hello")
+    @GetMapping("/api/v1/hello")
     public String hello() {
         return "Login Feature";
     }
