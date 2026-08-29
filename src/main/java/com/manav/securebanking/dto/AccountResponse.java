@@ -9,6 +9,8 @@ public class AccountResponse {
     private String name;
     private String accountType;
 
+    // DTO used for account API responses
+
     public Long getId(){
        return id;
     }
@@ -34,6 +36,7 @@ public class AccountResponse {
     }
 
     public static AccountResponse fromAccount(Account account){
+
 
         AccountResponse response = new AccountResponse();
 
