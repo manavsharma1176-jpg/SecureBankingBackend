@@ -13,6 +13,8 @@ import com.manav.securebanking.dto.AccountPatchRequest;
 import com.manav.securebanking.exception.AccountNotFoundException;
 import java.util.List;
 
+
+
 @Service
 public class AccountService {
 
@@ -31,9 +33,12 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public List<Account> getAllAccounts (){
+    public List<AccountResponse> getAllAccounts (){
 
-        return accountRepository.findAll();
+        return accountRepository.findAll()
+                .stream()
+                .map(AccountResponse::fromAccount)
+                .toList();
 
     }
 

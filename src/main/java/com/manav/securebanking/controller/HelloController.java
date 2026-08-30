@@ -36,7 +36,7 @@ public class HelloController {
 
 
     @GetMapping("/api/accounts")
-    public List<Account> getAllAccount(){
+    public List<AccountResponse> getAllAccount(){
         return accountService.getAllAccounts();
     }
 
