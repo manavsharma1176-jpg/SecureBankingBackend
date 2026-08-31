@@ -49,17 +49,20 @@ public class AccountService {
         return AccountResponse.fromAccount(account);
     }
 
-    public Account updateAccount(Long id , Account account){
+    public AccountResponse updateAccount(Long id , Account account){
         Account existingAccount = accountRepository.findById(id).orElseThrow(()->new RuntimeException("Account Not Found"));
 
         existingAccount.setName(account.getName());
         existingAccount.setAccountType(account.getAccountType());
 
-        return accountRepository.save(existingAccount);
+        Account updatedAccount = accountRepository.save(existingAccount);
+
+
+        return AccountResponse.fromAccount(updatedAccount);
 
     }
 
-    public Account patchAccount(Long id, AccountPatchRequest request) {
+    public AccountResponse patchAccount(Long id, AccountPatchRequest request) {
 
         Account existingAccount = accountRepository.findById(id)
                 .orElseThrow(() ->
@@ -73,7 +76,9 @@ public class AccountService {
             existingAccount.setAccountType(request.getAccountType());
         }
 
-        return accountRepository.save(existingAccount);
+        Account updatedAccount = accountRepository.save(existingAccount);
+
+        return AccountResponse.fromAccount(updatedAccount);
     }
 
     public void deleteAccount(Long id){

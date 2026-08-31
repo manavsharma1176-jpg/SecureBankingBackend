@@ -45,12 +45,12 @@ public class HelloController {
         return accountService.getAccountById(id);
     }
     @PutMapping("/api/accounts/{id}")
-    public Account updateAccount(@PathVariable Long id , @RequestBody Account account){
+    public AccountResponse updateAccount(@PathVariable Long id , @RequestBody Account account){
         return accountService.updateAccount(id , account);
     }
 
     @PatchMapping("/api/accounts/{id}")
-    public Account patchAccount(@PathVariable Long id, @RequestBody AccountPatchRequest request ) {
+    public AccountResponse patchAccount(@PathVariable Long id, @RequestBody AccountPatchRequest request ) {
         return accountService.patchAccount(id, request);
     }
 
