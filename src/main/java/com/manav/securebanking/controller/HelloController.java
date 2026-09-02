@@ -1,6 +1,7 @@
 package com.manav.securebanking.controller;
 
 import com.manav.securebanking.dto.AccountResponse;
+import com.manav.securebanking.dto.AccountUpdateRequest;
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.service.AccountService;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.manav.securebanking.dto.AccountPatchRequest;
+import com.manav.securebanking.dto.AccountCreateRequest;
 
 import java.util.List;
 
@@ -26,9 +28,9 @@ public class HelloController {
     }
 
     @PostMapping("/api/accounts")
-    public ResponseEntity<String> createAccount(@Valid @RequestBody Account account){
+    public ResponseEntity<String> createAccount(@Valid @RequestBody AccountCreateRequest request){
 
-        String response = accountService.createAccount(account);
+        String response = accountService.createAccount(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -44,9 +46,10 @@ public class HelloController {
     public AccountResponse getAccountById(@PathVariable Long id){
         return accountService.getAccountById(id);
     }
+
     @PutMapping("/api/accounts/{id}")
-    public AccountResponse updateAccount(@PathVariable Long id , @RequestBody Account account){
-        return accountService.updateAccount(id , account);
+    public AccountResponse updateAccount(@PathVariable Long id , @RequestBody AccountUpdateRequest request){
+        return accountService.updateAccount(id , request);
     }
 
     @PatchMapping("/api/accounts/{id}")
