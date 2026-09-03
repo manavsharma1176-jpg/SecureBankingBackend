@@ -2,6 +2,8 @@ package com.manav.securebanking.service;
 
 
 import com.manav.securebanking.dto.AccountResponse;
+import com.manav.securebanking.model.Customer;
+import com.manav.securebanking.repository.CustomerRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.manav.securebanking.model.Account;
@@ -12,6 +14,7 @@ import com.manav.securebanking.dto.AccountCreateRequest;
 import com.manav.securebanking.dto.AccountUpdateRequest;
 
 
+
 import com.manav.securebanking.exception.AccountNotFoundException;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import java.util.List;
 
 @Service
 public class AccountService {
+    private CustomerRepository customerRepository;
 
 
 
@@ -29,6 +33,11 @@ public class AccountService {
         account.setName(request.getName());
         account.setAccountType(request.getAccountType());
 
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                        .orElseThrow(()->
+                                new AccountNotFoundException("Customer Not Found"));
+
+        account.setCustomer(customer);
         accountRepository.save(account);
 
         return "Account created for " + account.getName();

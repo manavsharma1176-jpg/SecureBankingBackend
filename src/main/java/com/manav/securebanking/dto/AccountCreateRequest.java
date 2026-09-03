@@ -27,4 +27,14 @@ public class AccountCreateRequest {
     public String getAccountType(){
         return accountType;
     }
+
+    private Long customerId;
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
 }
