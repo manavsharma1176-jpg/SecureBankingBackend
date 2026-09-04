@@ -30,6 +30,8 @@ public class Customer {
         return name;
     }
 
+
+    // One customer can have multiple accounts
     @OneToMany(mappedBy = "customer")
     private List<Account> accounts;
 
