@@ -3,7 +3,9 @@ package com.manav.securebanking.model;
 
 import jakarta.persistence.*;
 
+
 import java.util.List;
+
 
 @Entity
 public class Customer {
@@ -32,7 +34,7 @@ public class Customer {
 
 
     // One customer can have multiple accounts
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer" , fetch = FetchType.LAZY)
     private List<Account> accounts;
 
     public void setAccount(List<Account> account){
