@@ -22,7 +22,7 @@ import java.util.List;
 
 @Service
 public class AccountService {
-    private CustomerRepository customerRepository;
+
 
 
 
@@ -45,9 +45,13 @@ public class AccountService {
     }
 
     private AccountRepository accountRepository;
-    public AccountService(AccountRepository accountRepository){
+    private CustomerRepository customerRepository;
+
+    public AccountService(AccountRepository accountRepository ,
+                          CustomerRepository customerRepository){
 
         this.accountRepository = accountRepository;
+        this.customerRepository = customerRepository;
     }
 
     public List<AccountResponse> getAllAccounts (){

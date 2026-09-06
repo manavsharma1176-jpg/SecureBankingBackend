@@ -20,7 +20,7 @@ public class Customer {
         this.id = id;
     }
 
-    public Long Id(){
+    public Long getId(){
         return id;
     }
 
@@ -28,7 +28,7 @@ public class Customer {
         this.name = name;
     }
 
-    public String name(){
+    public String getname(){
         return name;
     }
 
