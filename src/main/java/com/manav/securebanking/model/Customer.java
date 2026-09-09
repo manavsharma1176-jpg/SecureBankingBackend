@@ -33,7 +33,7 @@ public class Customer {
     }
 
 
-    // One customer can have multiple accounts
+    // A customer can have multiple bank accounts
     @OneToMany(mappedBy = "customer" , fetch = FetchType.LAZY)
     private List<Account> accounts;
 
