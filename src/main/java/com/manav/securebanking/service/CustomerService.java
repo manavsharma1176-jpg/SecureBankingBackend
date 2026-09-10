@@ -19,6 +19,7 @@ public class CustomerService {
 
     public Customer createCustomer(CustomerCreateRequest request){
 
+        // Create and save customer
         Customer customer = new Customer();
 
         customer.setName(request.getName());
