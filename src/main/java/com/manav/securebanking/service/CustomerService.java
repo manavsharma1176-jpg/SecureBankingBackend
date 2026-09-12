@@ -13,6 +13,7 @@ public class CustomerService {
 
     private CustomerRepository customerRepository;
 
+    // Constructor-based dependency injection
     public CustomerService(CustomerRepository customerRepository){
         this.customerRepository = customerRepository;
     }
