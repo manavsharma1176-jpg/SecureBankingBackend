@@ -2,6 +2,8 @@ package com.manav.securebanking.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 import java.util.List;
@@ -10,13 +12,17 @@ import java.util.List;
 @Entity
 public class Customer {
 
+    @NotBlank(message = "Customer name is required")
+    @Size(min = 2 , max = 50 , message = "Customer name must be between 2 and 50 characters")
+    private String name;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
 
-    public void setId(Long Id){
+    public void setId(Long id){
         this.id = id;
     }
 
@@ -37,11 +43,11 @@ public class Customer {
     @OneToMany(mappedBy = "customer" , fetch = FetchType.LAZY)
     private List<Account> accounts;
 
-    public void setAccount(List<Account> account){
+    public void setAccount(List<Account> accounts){
         this.accounts = accounts;
     }
 
-    public List<Account> accounts(){
+    public List<Account> getAccounts(){
         return accounts;
     }
 

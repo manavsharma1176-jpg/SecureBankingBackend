@@ -4,7 +4,9 @@ package com.manav.securebanking.service;
 import com.manav.securebanking.dto.CustomerCreateRequest;
 import com.manav.securebanking.model.Customer;
 import com.manav.securebanking.repository.CustomerRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -35,14 +37,20 @@ public class CustomerService {
 
     public Customer getCustomerById(Long id){
         return customerRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Customer Not Found"));
+                .orElseThrow(()->new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Customer Not Found"
+                ));
 
     }
 
     public Customer updateCustomer(Long id , CustomerCreateRequest request){
 
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer Not Found"));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Customer Not Found"
+                ));
 
         customer.setName(request.getName());
 
@@ -52,7 +60,12 @@ public class CustomerService {
     public void deleteCustomer(Long id){
 
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer Not Found"));
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Customer Not Found"
+
+                        ));
 
         customerRepository.delete(customer);
     }
