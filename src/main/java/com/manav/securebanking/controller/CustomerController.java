@@ -2,7 +2,7 @@ package com.manav.securebanking.controller;
 
 
 import com.manav.securebanking.dto.CustomerCreateRequest;
-import com.manav.securebanking.model.Customer;
+import com.manav.securebanking.dto.CustomerResponse;
 import com.manav.securebanking.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -22,25 +22,26 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(
+    public ResponseEntity<CustomerResponse> createCustomer(
             @Valid @RequestBody CustomerCreateRequest request){
-        Customer customer = customerService.createCustomer(request);
+
+        CustomerResponse customer = customerService.createCustomer(request);
 
         return ResponseEntity.ok(customer);
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers(){
+    public ResponseEntity<List<CustomerResponse>> getAllCustomers(){
         return ResponseEntity.ok(customerService.getAllCustomers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id){
+    public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable Long id){
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer(
+    public ResponseEntity<CustomerResponse> updateCustomer(
             @PathVariable Long id,
             @Valid @RequestBody CustomerCreateRequest request) {
 
