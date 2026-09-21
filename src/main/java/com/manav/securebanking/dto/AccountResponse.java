@@ -2,12 +2,15 @@ package com.manav.securebanking.dto;
 
 import com.manav.securebanking.model.Account;
 
+import java.math.BigDecimal;
+
 public class AccountResponse {
 
 
     private Long id;
     private String name;
     private String accountType;
+    private BigDecimal balance;
 
     // DTO used for account API responses
 
@@ -35,6 +38,14 @@ public class AccountResponse {
         this.accountType = accountType;
     }
 
+    public BigDecimal getBalance(){
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance){
+        this.balance = balance;
+    }
+
     public static AccountResponse fromAccount(Account account){
 
 
@@ -43,6 +54,7 @@ public class AccountResponse {
         response.setId(account.getId());
         response.setName(account.getName());
         response.setAccountType(account.getAccountType());
+        response.setBalance(account.getBalance());
 
         return response;
 

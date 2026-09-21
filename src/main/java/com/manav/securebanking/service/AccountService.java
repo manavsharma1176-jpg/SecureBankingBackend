@@ -1,7 +1,7 @@
 package com.manav.securebanking.service;
 
 
-import com.manav.securebanking.dto.AccountResponse;
+import com.manav.securebanking.dto.*;
 import com.manav.securebanking.model.Customer;
 import com.manav.securebanking.repository.CustomerRepository;
 import org.springframework.http.HttpStatus;
@@ -9,13 +9,11 @@ import org.springframework.stereotype.Service;
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.repository.AccountRepository;
 import org.springframework.web.server.ResponseStatusException;
-import com.manav.securebanking.dto.AccountPatchRequest;
-import com.manav.securebanking.dto.AccountCreateRequest;
-import com.manav.securebanking.dto.AccountUpdateRequest;
-
 
 
 import com.manav.securebanking.exception.AccountNotFoundException;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -32,6 +30,7 @@ public class AccountService {
 
         account.setName(request.getName());
         account.setAccountType(request.getAccountType());
+        account.setBalance(BigDecimal.ZERO);
 
         Customer customer = customerRepository.findById(request.getCustomerId())
                         .orElseThrow(()->
@@ -106,6 +105,22 @@ public class AccountService {
         Account existingAccount = accountRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Account Not Found"));
 
         accountRepository.delete(existingAccount);
+    }
+
+    public AccountResponse deposit(Long id , DepositRequest request){
+
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() ->
+                        new AccountNotFoundException("Account Not Found"));
+
+        account.setBalance(
+                account.getBalance().add(request.getAmount())
+        );
+
+        Account updatedAccount = accountRepository.save(account);
+
+        return AccountResponse.fromAccount(updatedAccount);
+
     }
 
 

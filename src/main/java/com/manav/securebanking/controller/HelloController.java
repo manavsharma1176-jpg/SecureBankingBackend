@@ -1,15 +1,11 @@
 package com.manav.securebanking.controller;
 
-import com.manav.securebanking.dto.AccountResponse;
-import com.manav.securebanking.dto.AccountUpdateRequest;
-import com.manav.securebanking.model.Account;
+import com.manav.securebanking.dto.*;
 import com.manav.securebanking.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.manav.securebanking.dto.AccountPatchRequest;
-import com.manav.securebanking.dto.AccountCreateRequest;
 
 import java.util.List;
 
@@ -63,6 +59,20 @@ public class HelloController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/api/accounts/{id}/deposit")
+
+    public ResponseEntity<AccountResponse> deposit(
+            @PathVariable Long id,
+            @Valid @RequestBody DepositRequest request){
+
+        return ResponseEntity.ok(
+                accountService.deposit(id, request)
+        );
+    }
+
+
+
 
 
     private AccountService accountService;

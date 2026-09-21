@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.math.BigDecimal;
+
 
 @Entity
 public class Account {
@@ -37,6 +39,16 @@ public class Account {
 
     public void setAccountType(String accountType){
         this.accountType = accountType;
+    }
+
+    private BigDecimal balance;
+
+    public BigDecimal getBalance(){
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance){
+        this.balance = balance;
     }
 
 
