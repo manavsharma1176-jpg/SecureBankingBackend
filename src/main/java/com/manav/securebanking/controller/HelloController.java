@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.manav.securebanking.dto.TransferRequest;
 
 import java.util.List;
 
@@ -70,6 +71,17 @@ public class HelloController {
                 accountService.deposit(id, request)
         );
     }
+
+    @PostMapping("/api/accounts/transfer")
+    public ResponseEntity<String> transfer(
+            @Valid @RequestBody TransferRequest request){
+
+        return ResponseEntity.ok(
+                accountService.transfer(request)
+        );
+    }
+
+
 
 
 

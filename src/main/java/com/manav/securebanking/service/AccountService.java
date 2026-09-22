@@ -4,11 +4,13 @@ package com.manav.securebanking.service;
 import com.manav.securebanking.dto.*;
 import com.manav.securebanking.model.Customer;
 import com.manav.securebanking.repository.CustomerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.manav.securebanking.model.Account;
 import com.manav.securebanking.repository.AccountRepository;
 import org.springframework.web.server.ResponseStatusException;
+import com.manav.securebanking.dto.TransferRequest;
 
 
 import com.manav.securebanking.exception.AccountNotFoundException;
@@ -120,6 +122,38 @@ public class AccountService {
         Account updatedAccount = accountRepository.save(account);
 
         return AccountResponse.fromAccount(updatedAccount);
+
+    }
+
+    @Transactional
+    public String transfer(TransferRequest request){
+
+        Account sender = accountRepository.findById(request.getSenderAccountId())
+                .orElseThrow(()->
+                        new AccountNotFoundException("Sender Account Not Found"));
+
+        if (sender.getBalance().compareTo(request.getAmount()) < 0) {
+            throw new IllegalArgumentException("Insufficient balance");
+        }
+
+        Account receiver = accountRepository.findById(request.getReceiverAccountId())
+                .orElseThrow(()->
+                        new AccountNotFoundException("Receiver Account Not Found"));
+
+        sender.setBalance(
+                sender.getBalance().subtract(request.getAmount())
+        );
+
+        receiver.setBalance(
+                receiver.getBalance().add(request.getAmount())
+        );
+
+        accountRepository.save(sender);
+        accountRepository.save(receiver);
+
+        return "Transfer successful";
+
+
 
     }
 
