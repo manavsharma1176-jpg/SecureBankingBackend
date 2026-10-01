@@ -1,5 +1,6 @@
 package com.manav.securebanking.controller;
 
+import com.manav.securebanking.dto.LoginRequest;
 import com.manav.securebanking.dto.UserRegistrationRequest;
 import com.manav.securebanking.service.UserService;
 import jakarta.validation.Valid;
@@ -27,6 +28,11 @@ public class AuthController {
         return userService.registerUser(request);
     }
 
+    @PostMapping("/login")
+    public String login(
+            @Valid @RequestBody LoginRequest request){
+        return userService.loginUser(request);
+    }
 
 
 

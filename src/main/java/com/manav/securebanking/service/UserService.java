@@ -1,7 +1,9 @@
 package com.manav.securebanking.service;
 
 
+import com.manav.securebanking.dto.LoginRequest;
 import com.manav.securebanking.dto.UserRegistrationRequest;
+import com.manav.securebanking.exception.InvalidCredentialsException;
 import com.manav.securebanking.model.User;
 import com.manav.securebanking.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,6 +37,28 @@ public class UserService{
         userRepository.save(user);
 
         return "User registered Successfully";
+    }
+
+    public String loginUser(LoginRequest request){
+
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(()->
+                       new RuntimeException("Invalid username or password"));
+
+        boolean passwordMatches =
+                passwordEncoder.matches(
+                        request.getPassword(),
+                        user.getPassword()
+                );
+
+        if(!passwordMatches){
+            throw new InvalidCredentialsException("Invalid username or password");
+
+        } return "Login successful";
+
+
+
+
     }
 
 
