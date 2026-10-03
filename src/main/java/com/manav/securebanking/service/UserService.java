@@ -8,6 +8,8 @@ import com.manav.securebanking.model.User;
 import com.manav.securebanking.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.manav.securebanking.service.JwtService;
+;
 
 
 @Service
@@ -15,12 +17,15 @@ public class UserService{
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public UserService(
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder){
+            PasswordEncoder passwordEncoder,
+            JwtService jwtService){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public String registerUser(UserRegistrationRequest request){
@@ -54,7 +59,7 @@ public class UserService{
         if(!passwordMatches){
             throw new InvalidCredentialsException("Invalid username or password");
 
-        } return "Login successful";
+        } return jwtService.generateToken(user.getUsername());
 
 
 
