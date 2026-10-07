@@ -20,7 +20,7 @@ public class JwtService {
                this.secretKey = Keys.hmacShaKeyFor(keyBytes);
            }
 
-    public String generateToken(String username){
+    public String generateToken(String username) {
 
         long currentTime = System.currentTimeMillis();
 
@@ -33,4 +33,15 @@ public class JwtService {
                 .signWith(secretKey)
                 .compact();
     }
+
+        public String extractUsername(String token){
+            return Jwts.parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload()
+                    .getSubject();
+
+        }
+
 }
