@@ -47,4 +47,79 @@ public class AccountControllerTest {
                         .content(requestBody)
         ).andExpect(status().isCreated());
     }
+
+    @Test
+    void shouldRejectAccountWithName() throws Exception{
+
+        String requestBody = """
+            {
+                "name": "A",
+                "accountType": "SAVINGS",
+                "customerId": 1
+            }
+            """;
+
+        mockMvc.perform(
+                post("/api/accounts")
+                        .contentType(APPLICATION_JSON)
+                        .content(requestBody)
+        ).andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    void shouldRejectAccountWithShortName() throws Exception {
+        String requestBody = """
+            {
+                "name": "A",
+                "accountType": "SAVINGS",
+                "customerId": 1
+            }
+            """;
+
+        mockMvc.perform(
+                post("/api/accounts")
+                        .contentType(APPLICATION_JSON)
+                        .content(requestBody)
+        ).andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    void shouldRejectAccountWithBlankName() throws Exception {
+        String requestBody = """
+            {
+                "name": "   ",
+                "accountType": "SAVINGS",
+                "customerId": 1
+            }
+            """;
+
+        mockMvc.perform(
+                post("/api/accounts")
+                        .contentType(APPLICATION_JSON)
+                        .content(requestBody)
+        ).andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    void shouldRejectAccountWithBlankAccountType() throws Exception {
+        String requestBody = """
+            {
+                "name": "Manav",
+                "accountType": "   ",
+                "customerId": 1
+            }
+            """;
+
+        mockMvc.perform(
+                post("/api/accounts")
+                        .contentType(APPLICATION_JSON)
+                        .content(requestBody)
+        ).andExpect(status().isBadRequest());
+    }
+
+
+
 }
